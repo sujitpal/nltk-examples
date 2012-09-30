@@ -174,7 +174,8 @@ def effect_of_model_size_on_tagger():
   cfd = nltk.ConditionalFreqDist(brown.tagged_words(categories="news"))
   sizes = 2 ** pylab.arange(15)
   perfs = [_evaluate_tagger(cfd, words_by_freq[:size], sents) for size in sizes]
-  pylab.plot(sizes, perfs, "-bo")
+#  pylab.plot(sizes, perfs, "-bo")
+  pylab.semilogx(sizes, perfs, "-bo")
   pylab.title("Lookup Tagger Performance with Varying Model Size")
   pylab.xlabel("Model Size")
   pylab.ylabel("Performance")
@@ -263,11 +264,11 @@ def main():
 #  analysis_using_word_and_prev_pos()
 #  invert_dictionary()
 #  tagging_tests()
-#  effect_of_model_size_on_tagger() # warn: takes long
+  effect_of_model_size_on_tagger() # warn: takes long
 #  train_and_test_tagger()
 #  show_sparse_data_problem_with_bigram_tagger()
 #  nested_backoff_tagger()
-  ambiguous_tags()
+#  ambiguous_tags()
 
   print "end"
   
