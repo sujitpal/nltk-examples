@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# Categorizing and tagging words
 
 from __future__ import division
 import nltk

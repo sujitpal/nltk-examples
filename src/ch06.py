@@ -1,9 +1,11 @@
 #!/usr/bin/python
+# Text classification
 
 from __future__ import division
 import nltk
 from nltk.classify import apply_features
 import random
+import math
 
 def _gender_features(word):
   features = {}
@@ -78,7 +80,7 @@ def document_classification_movie_reviews():
   train_set, test_set = featuresets[100:], featuresets[:100]
   classifier = nltk.NaiveBayesClassifier.train(train_set)
   print nltk.classify.accuracy(classifier, test_set)
-  classifier.show_most_informative_features(5)
+  classifier.show_most_informative_features(30)
 
 def _pos_features(word, common_suffixes):
   features = {}
@@ -97,8 +99,8 @@ def pos_tagging_classification():
     suffix_fdist.inc(word[-3:])
   common_suffixes = suffix_fdist.keys()[:100]
   tagged_words = brown.tagged_words(categories="news")
-  featuresets = [(_pos_features(n, common_suffixes), pos)
-                  for (n, pos) in tagged_words]
+  featuresets = [(_pos_features(w, common_suffixes), pos)
+                  for (w, pos) in tagged_words]
   size = int(len(featuresets) * 0.1)
   train_set, test_set = featuresets[size:], featuresets[:size]
   classifier = nltk.DecisionTreeClassifier.train(train_set)
@@ -232,16 +234,27 @@ def recognize_text_entailment():
   print "hyp_extra(word)=", extractor.hyp_extra("word")
   print "hyp_extra(ne)=", extractor.hyp_extra("ne")
 
+def entropy(labels):
+  freqdist = nltk.FreqDist(labels)
+  probs = [freqdist.freq(label) for label in labels]
+  return -sum([p * math.log(p, 2) for p in probs])
+
+def calc_entropy():
+  print entropy(["male", "male", "male", "female"])
+  print entropy(["male", "male", "male", "male"])
+  print entropy(["female", "female", "female", "female"])
+
 def main():
 #  naive_bayes_gender_classifier()
 #  error_analysis()
-#  document_classification_movie_reviews()
+  document_classification_movie_reviews()
 #  pos_tagging_classification()
 #  pos_tagging_classification_with_sentence_context()
 #  sequence_classification_using_prev_pos()
 #  sentence_segmentation_as_classification_for_punctuation()
 #  identify_dialog_act_types()
-  recognize_text_entailment()
+#  recognize_text_entailment()
+#  calc_entropy()
   print "end"
 
 

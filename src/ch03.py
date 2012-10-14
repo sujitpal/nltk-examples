@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# Processing raw text
 
 from __future__ import division
 import nltk 

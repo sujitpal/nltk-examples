@@ -1,4 +1,5 @@
-#! /usr/bin/python
+#!/usr/bin/python
+# Accessing text corpora and local resources
 from __future__ import division
 import nltk
 import nltk.corpus
