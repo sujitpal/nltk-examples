@@ -1,7 +1,5 @@
 from __future__ import division
 
-import math
-
 import glob
 import nltk
 from nltk.corpus.reader import XMLCorpusReader
@@ -45,7 +43,7 @@ def test(langModel):
       word = trigram[2]
       context = list(trigrams[:-1])
       slogprob += langModel.logprob(word, context)
-    print slogprob
+    print "(", slogprob, ")"
   testData.close()
 
 def main():

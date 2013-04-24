@@ -17,15 +17,18 @@ class LangModel:
       self.lexicon = None
     else:
       self.backoff = None
-      self.lexicon = set()
+      self.n = 0
     self.ngramFD = nltk.FreqDist()
+    lexicon = set()
     for sentence in sentences:
       words = nltk.word_tokenize(sentence)
       wordNGrams = nltk.ngrams(words, order)
       for wordNGram in wordNGrams:
         self.ngramFD.inc(wordNGram)
         if order == 1:
-          self.lexicon.add(wordNGram)
+          lexicon.add(wordNGram)
+          self.n += 1
+    self.v = len(lexicon)
 
   def logprob(self, ngram):
     return math.log(self.prob(ngram))
@@ -39,7 +42,8 @@ class LangModel:
       else:
         return freq / backoffFreq
     else:
-      return 1 / len(self.lexicon)
+      # laplace smoothing to handle unknown unigrams
+      return ((self.ngramFD[ngram] + 1) / (self.n + self.v))
 
 def train():
   if os.path.isfile("lm.bin"):
@@ -70,7 +74,7 @@ def test():
     for wordTrigram in wordTrigrams:
       logprob = lm1.logprob(wordTrigram)
       slogprob += logprob
-    print slogprob / len(words)
+    print "(", slogprob / len(words), ")"
 
 def main():
   train()
