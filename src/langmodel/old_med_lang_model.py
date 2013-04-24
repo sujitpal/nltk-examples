@@ -5,6 +5,7 @@ import nltk
 from nltk.corpus.reader import XMLCorpusReader
 from nltk.model.ngram import NgramModel
 from nltk.probability import LidstoneProbDist
+import cPickle
 
 def train():
   # parse XML and load up words
@@ -29,6 +30,8 @@ def train():
   print("Building language model...")
   est = lambda fdist, bins: LidstoneProbDist(fdist, 0.2)
   langModel = NgramModel(3, words, estimator=est)
+#  langModel = NgramModel(3, words)
+#  cPickle.dump(langModel, open("lm.bin", 'wb'))
   return langModel
 
 def test(langModel):
