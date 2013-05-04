@@ -23,3 +23,7 @@ A Named Entity Recognizer for Genes - uses NLTK's HMM package to build an HMM ta
 
 A trigram backoff language model trained on medical XML documents, and used to estimate the normalized log probability of an unknown sentence.
 
+## src/docsim/
+
+A proof of concept for calculating inter-document similarities for a collection of text documents for a cheating detection system.
+
