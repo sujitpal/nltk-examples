@@ -2,10 +2,11 @@ from __future__ import division
 
 from operator import itemgetter
 
-from nltk.cluster.util import cosine_distance
+import nltk.cluster.util as nltkutil
 import numpy as np
 import random
 import re
+import scam_dist as scam
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
@@ -47,7 +48,7 @@ def train(fnin):
   tdMatrix = pipeline.fit_transform(docs, cats)
   return tdMatrix, cats
 
-def test(tdMatrix, cats):
+def test(tdMatrix, cats, fsim):
   testIds = random.sample(range(0, len(cats)), int(0.1 * len(cats)))
   testIdSet = set(testIds)
   refIds = filter(lambda x: x not in testIdSet, range(0, len(cats)))
@@ -56,7 +57,7 @@ def test(tdMatrix, cats):
     for j in range(0, len(refIds)):
       doc1 = np.asarray(tdMatrix[testIds[i], :].todense()).reshape(-1)
       doc2 = np.asarray(tdMatrix[refIds[j], :].todense()).reshape(-1)
-      sims[i, j] = cosine_distance(doc1, doc2)
+      sims[i, j] = fsim(doc1, doc2)
   for i in range(0, sims.shape[0]):
     xsim = list(enumerate(sims[i, :]))
     sortedSims = sorted(xsim, key=itemgetter(1), reverse=True)[0:5]
@@ -74,7 +75,12 @@ def test(tdMatrix, cats):
 def main():
   preprocess("sugar-coffee-cocoa-docs.txt", "sccpp.txt")
   tdMatrix, cats = train("sccpp.txt")
-  test(tdMatrix, cats)
+  print "Results with Cosine Distance Similarity Measure"
+  test(tdMatrix, cats, nltkutil.cosine_distance)
+  print "Results with Euclidean Distance Similarity Measure"
+  test(tdMatrix, cats, nltkutil.euclidean_distance)
+  print "Results with SCAM Distance Similarity Measure"
+  test(tdMatrix, cats, scam.scam_distance)
   
 if __name__ == "__main__":
   main()
