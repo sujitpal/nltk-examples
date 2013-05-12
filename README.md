@@ -25,5 +25,9 @@ A trigram backoff language model trained on medical XML documents, and used to e
 
 ## src/docsim/
 
-A proof of concept for calculating inter-document similarities for a collection of text documents for a cheating detection system.
+A proof of concept for calculating inter-document similarities for a collection of text documents for a cheating detection system. Contains implementation of the SCAM (Standard Copy Analysis Mechanism) in order to possible near-duplicate documents.
+
+## src/phrases/
+
+A proof of concept to identify significant word collocations as phrases from about an hours worth of messages from the Twitter 1% feed, calculated as a log-likelihood ratio of the probability that they are dependent vs that they are independent. Based on the approach described in "Building Search Applications: Lucene, LingPipe and GATE" by Manu Konchady, but extended to handle any size N-gram.
 
