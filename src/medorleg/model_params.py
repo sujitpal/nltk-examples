@@ -8,7 +8,7 @@ from sklearn.metrics import r2_score
 def train(prefix):
   X = np.exp(np.loadtxt(prefix + "_X.txt"))
   y = np.exp(np.loadtxt(prefix + "_y.txt"))
-  model = LinearRegression()
+  model = LinearRegression(fit_intercept=True)
   model.fit(X, y)
   ypred = model.predict(X)
   print prefix, model.coef_, model.intercept_, r2_score(y, ypred)
