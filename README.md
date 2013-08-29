@@ -31,3 +31,11 @@ A proof of concept for calculating inter-document similarities for a collection 
 
 A proof of concept to identify significant word collocations as phrases from about an hours worth of messages from the Twitter 1% feed, calculated as a log-likelihood ratio of the probability that they are dependent vs that they are independent. Based on the approach described in "Building Search Applications: Lucene, LingPipe and GATE" by Manu Konchady, but extended to handle any size N-gram.
 
+## src/medorleg
+
+A trigram interpolated model trained on medical and legal sentences, and used to classify a sentence as one of the two genres.
+
+## src/medorleg2
+
+Uses the same training data as medorleg, but uses Scikit-Learn's text API and LinearSVC implementations to build a classifier that predicts the genre of an unseen sentence.
+
