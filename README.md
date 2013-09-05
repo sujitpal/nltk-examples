@@ -39,3 +39,5 @@ A trigram interpolated model trained on medical and legal sentences, and used to
 
 Uses the same training data as medorleg, but uses Scikit-Learn's text API and LinearSVC implementations to build a classifier that predicts the genre of an unseen sentence.
 
+Also contains an ARFF writer to convert the X and y matrices to ARFF format for consumption by WEKA. This was done so we could reuse Scikit-Learn's text processing pipeline to build a WEKA model, which could then be used directly from within a Java based data pipeline.
+
