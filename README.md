@@ -41,3 +41,7 @@ Uses the same training data as medorleg, but uses Scikit-Learn's text API and Li
 
 Also contains an ARFF writer to convert the X and y matrices to ARFF format for consumption by WEKA. This was done so we could reuse Scikit-Learn's text processing pipeline to build a WEKA model, which could then be used directly from within a Java based data pipeline.
 
+## src/brown\_dict
+
+Using a POS tagged (Brown) corpus to build a dictionary of words and their sense frequencies, and using a chunked (Penn Treebank subset) corpus to build a reference set of POS sequences and POS state transitions to allow context free POS tagging of standalone words and phrase type detection of standalone phrases.
+
