@@ -45,3 +45,6 @@ Also contains an ARFF writer to convert the X and y matrices to ARFF format for 
 
 Using a POS tagged (Brown) corpus to build a dictionary of words and their sense frequencies, and using a chunked (Penn Treebank subset) corpus to build a reference set of POS sequences and POS state transitions to allow context free POS tagging of standalone words and phrase type detection of standalone phrases.
 
+### src/topicmodel
+
+Topic modeling the PHR corpus with gensim.
