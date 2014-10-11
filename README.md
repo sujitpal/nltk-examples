@@ -48,3 +48,7 @@ Using a POS tagged (Brown) corpus to build a dictionary of words and their sense
 ### src/topicmodel
 
 Topic modeling the PHR corpus with gensim.
+
+### src/stlclust
+
+Using DBSCAN to cluster section titles in clinical notes.
