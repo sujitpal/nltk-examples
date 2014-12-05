@@ -52,3 +52,8 @@ Topic modeling the PHR corpus with gensim.
 ### src/stlclust
 
 Using DBSCAN to cluster section titles in clinical notes.
+
+### src/semantic
+
+Python/NLTK implementation of the algorithm described in the paper - Sentence Similarity Based on Semantic Nets and Corpus Statistics by Li, et al.
+
