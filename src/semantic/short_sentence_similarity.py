@@ -85,11 +85,24 @@ def hierarchy_dist(synset_1, synset_2):
         # return the depth of one of synset_1 or synset_2
         h_dist = max([x[1] for x in synset_1.hypernym_distances()])
     else:
-        # find the max distance from the root between synset_1 or synset_2
-        h_dist = max(max([x[1] for x in synset_1.hypernym_distances()]),
-                     max([x[1] for x in synset_2.hypernym_distances()]))
-        if h_dist is None:
-            h_dist = 0.0
+        # find the max depth of least common subsumer
+        hypernyms_1 = {x[0]:x[1] for x in synset_1.hypernym_distances()}
+        hypernyms_2 = {x[0]:x[1] for x in synset_2.hypernym_distances()}
+        lcs_candidates = set(hypernyms_1.keys()).intersection(
+            set(hypernyms_2.keys()))
+        if len(lcs_candidates) > 0:
+            lcs_dists = []
+            for lcs_candidate in lcs_candidates:
+                lcs_d1 = 0
+                if hypernyms_1.has_key(lcs_candidate):
+                    lcs_d1 = hypernyms_1[lcs_candidate]
+                lcs_d2 = 0
+                if hypernyms_2.has_key(lcs_candidate):
+                    lcs_d2 = hypernyms_2[lcs_candidate]
+                lcs_dists.append(max([lcs_d1, lcs_d2]))
+            h_dist = max(lcs_dists)
+        else:
+            h_dist = 0
     return ((math.exp(BETA * h_dist) - math.exp(-BETA * h_dist)) / 
         (math.exp(BETA * h_dist) + math.exp(-BETA * h_dist)))
     
@@ -164,7 +177,7 @@ def semantic_vector(words, joint_words, info_content_norm):
         i = i + 1
     return semvec                
             
-def sentence_similarity(sentence_1, sentence_2, info_content_norm):
+def semantic_similarity(sentence_1, sentence_2, info_content_norm):
     """
     Computes the semantic similarity between two sentences as the cosine
     similarity between the semantic vectors computed for each sentence.
@@ -222,13 +235,13 @@ def word_order_similarity(sentence_1, sentence_2):
 
 ######################### overall similarity ##########################
 
-def semantic_similarity(sentence_1, sentence_2, info_content_norm):
+def similarity(sentence_1, sentence_2, info_content_norm):
     """
     Calculate the semantic similarity between two sentences. The last 
     parameter is True or False depending on whether information content
     normalization is desired or not.
     """
-    return DELTA * sentence_similarity(sentence_1, sentence_2, info_content_norm) + \
+    return DELTA * semantic_similarity(sentence_1, sentence_2, info_content_norm) + \
         (1.0 - DELTA) * word_order_similarity(sentence_1, sentence_2)
         
 ######################### main / test ##########################
@@ -291,5 +304,5 @@ sentence_pairs = [
 ]
 for sent_pair in sentence_pairs:
     print "%s\t%s\t%.3f\t%.3f\t%.3f" % (sent_pair[0], sent_pair[1], sent_pair[2], 
-        semantic_similarity(sent_pair[0], sent_pair[1], False),
-        semantic_similarity(sent_pair[0], sent_pair[1], True))
+        similarity(sent_pair[0], sent_pair[1], False),
+        similarity(sent_pair[0], sent_pair[1], True))
