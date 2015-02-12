@@ -57,3 +57,7 @@ Using DBSCAN to cluster section titles in clinical notes.
 
 Python/NLTK implementation of the algorithm described in the paper - Sentence Similarity Based on Semantic Nets and Corpus Statistics by Li, et al.
 
+### src/drug\_ner
+
+Drug name NER using one class classification approach. Only positive training set (drug name ngrams) are provided, along with an unlabelled dataset and estimate of proportion of positive data. More information on my blog post: [Classification with Positive Examples only](http://sujitpal.blogspot.com/2015/02/classification-with-positive-examples.html).
+
