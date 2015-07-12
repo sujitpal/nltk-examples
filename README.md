@@ -47,7 +47,10 @@ Using a POS tagged (Brown) corpus to build a dictionary of words and their sense
 
 ### src/topicmodel
 
-Topic modeling the PHR corpus with gensim.
+Topic modeling the PHR corpus with gensim. More information in these posts:
+
+* [Topic Modeling with gensim](http://sujitpal.blogspot.com/2014/08/topic-modeling-with-gensim-over-past.html)
+* [Using Keyword Generation to refine Topic Models](http://sujitpal.blogspot.com/2015/07/using-keyword-generation-to-refine.html).
 
 ### src/stlclust
 
