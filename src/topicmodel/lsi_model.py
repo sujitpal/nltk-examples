@@ -6,8 +6,8 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 
 MODELS_DIR = "models"
 
-dictionary = gensim.corpora.Dictionary.load(os.path.join(MODELS_DIR, "mtsamples.dict"))
-corpus = gensim.corpora.MmCorpus(os.path.join(MODELS_DIR, "mtsamples.mm"))
+dictionary = gensim.corpora.Dictionary.load(os.path.join(MODELS_DIR, "bok.dict"))
+corpus = gensim.corpora.MmCorpus(os.path.join(MODELS_DIR, "bok.mm"))
 
 tfidf = gensim.models.TfidfModel(corpus, normalize=True)
 corpus_tfidf = tfidf[corpus]

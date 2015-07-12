@@ -1,19 +1,22 @@
+import matplotlib.pyplot as plt
 import os
+import pandas as pd
 import wordcloud
 
 MODELS_DIR = "models"
 
-final_topics = open(os.path.join(MODELS_DIR, "final_topics.txt"), 'rb')
-curr_topic = 0
-for line in final_topics:
-    line = line.strip()[line.rindex(":") + 2:]
-    scores = [float(x.split("*")[0]) for x in line.split(" + ")]
-    words = [x.split("*")[1] for x in line.split(" + ")]
+ttdf = pd.read_csv(os.path.join(MODELS_DIR, "topic_terms.csv"), 
+                   sep="\t", skiprows=0, names=["topic_id", "term", "prob"])
+topics = ttdf.groupby("topic_id").groups
+for topic in topics.keys():
+    row_ids = topics[topic]
     freqs = []
-    for word, score in zip(words, scores):
-        freqs.append((word, score))
-    elements = wordcloud.fit_words(freqs, width=120, height=120)
-    wordcloud.draw(elements, "gs_topic_%d.png" % (curr_topic),
-                   width=120, height=120)
-    curr_topic += 1
-final_topics.close()
+    for row_id in row_ids:
+        row = ttdf.ix[row_id]
+        freqs.append((row["term"], row["prob"]))
+    wc = wordcloud.WordCloud()
+    elements = wc.fit_words(freqs)
+    plt.figure(figsize=(5, 5))
+    plt.imshow(wc)
+    plt.axis("off")
+    plt.show()
