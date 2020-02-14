@@ -1,0 +1,7 @@
+DFS	Department of Financial Services
+LIBOR	London Interbank Offered Rate
+DOJ	US Department of Justice
+SDNY	Southern District of New York
+EDNY	Eastern District of New York
+FinCEN	Financial Crimes Enforcement Network
+OCCRP	Organized Crime and Corruption Reporting Project
