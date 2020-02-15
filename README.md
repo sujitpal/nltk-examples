@@ -64,3 +64,12 @@ Python/NLTK implementation of the algorithm described in the paper - Sentence Si
 
 Drug name NER using one class classification approach. Only positive training set (drug name ngrams) are provided, along with an unlabelled dataset and estimate of proportion of positive data. More information on my blog post: [Classification with Positive Examples only](http://sujitpal.blogspot.com/2015/02/classification-with-positive-examples.html).
 
+### src/similar-tweets-nmslib
+
+More information on my blog post: [Finding Similar Tweets with BERT and NMSLib](https://sujitpal.blogspot.com/2019/12/finding-similar-tweets-with-bert-and.html).
+
+### src/entity\_graph
+
+More information on my blog post: [Entity Co-occurrence graphs as Mind Map](https://sujitpal.blogspot.com/2020/02/entity-co-occurrence-graphs-as-mind-maps.html).
+
+
